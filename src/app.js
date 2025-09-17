@@ -4,6 +4,7 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const { connectDB } = require('./config/database');
@@ -35,6 +36,7 @@ const io = socketIo(server, {
 // Security middleware
 app.use(helmet());
 app.use(cors());
+app.use(morgan('combined'));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -110,7 +112,7 @@ async function startServer() {
     await connectRedis();
 
     // Initialize Redis subscribers for announcements
-    initializeAnnouncementSubscribers(io);
+    // initializeAnnouncementSubscribers(io);
 
     server.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
