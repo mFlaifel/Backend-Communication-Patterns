@@ -1466,7 +1466,7 @@
 			]
 		},
 		{
-			"name": "Images",
+			"name": "Feature 7: Image Upload & Processing",
 			"item": [
 				{
 					"name": "Upload Image",
@@ -1484,7 +1484,12 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/msf-2/Pictures/Screenshot 2025-05-12 212921.png"
+								},
+								{
+									"key": "menuItemId",
+									"value": "3",
+									"type": "text"
 								}
 							]
 						},
@@ -1496,6 +1501,140 @@
 							"path": [
 								"images",
 								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/status/:uploadId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/msf-2/Pictures/Screenshot 2025-05-12 212921.png"
+								},
+								{
+									"key": "menuItemId",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/images/status/:uploadId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"status",
+								":uploadId"
+							],
+							"variable": [
+								{
+									"key": "uploadId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/uploads/restaurant",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/msf-2/Pictures/Screenshot 2025-05-12 212921.png"
+								},
+								{
+									"key": "menuItemId",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/images/uploads/restaurant",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								"uploads",
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete image",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/msf-2/Pictures/Screenshot 2025-05-12 212921.png"
+								},
+								{
+									"key": "menuItemId",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/images/:uplaodId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"images",
+								":uplaodId"
+							],
+							"variable": [
+								{
+									"key": "uplaodId",
+									"value": ""
+								}
 							]
 						}
 					},

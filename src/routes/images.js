@@ -76,18 +76,18 @@ router.post(
       const menuItem = menuItemCheck.rows[0];
 
       // Create upload record
-      const uploadId = uuidv4();
+      const generatedUploadId = uuidv4();
       const originalFilename = req.file.originalname;
       const fileExtension = path.extname(originalFilename);
-      const filename = `${uploadId}${fileExtension}`;
+      const filename = `${generatedUploadId}${fileExtension}`;
       const filePath = path.join('uploads', 'menu-items', filename);
 
+      // Change this part of the code:
       const uploadRecord = await query(
-        `INSERT INTO image_uploads (id, restaurant_id, menu_item_id, original_filename, file_path, file_size, status, progress)
-       VALUES ($1, $2, $3, $4, $5, $6, 'uploading', 0)
-       RETURNING id, created_at`,
+        `INSERT INTO image_uploads (restaurant_id, menu_item_id, original_filename, file_path, file_size, status, progress)
+         VALUES ($1, $2, $3, $4, $5, 'uploading', 0)
+         RETURNING id, created_at`,
         [
-          uploadId,
           menuItem.restaurant_id,
           menuItemId,
           originalFilename,
@@ -96,6 +96,8 @@ router.post(
         ]
       );
 
+      // Then use the returned ID from the database:
+      const uploadId = uploadRecord.rows[0].id;
       // Start asynchronous processing
       processImageAsync(uploadId, req.file.buffer, filePath, menuItemId);
 
