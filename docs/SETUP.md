@@ -116,15 +116,6 @@ docker-compose exec postgres psql -U foodfast_user -d foodfast -c "SELECT COUNT(
 docker-compose exec redis redis-cli ping
 ```
 
-## Next Steps
-
-The setup provides the foundation. Now you need to implement each feature:
-
-- ✅ Project structure created
-- ✅ Docker environment ready
-- ✅ Database schema defined
-- 🔄 **Next: Implement Feature 1 (Authentication)**
-
 ## Useful Commands
 
 ```bash

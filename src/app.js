@@ -33,10 +33,10 @@ const io = socketIo(server, {
   },
 });
 
+app.use(morgan('combined'));
 // Security middleware
 app.use(helmet());
 app.use(cors());
-app.use(morgan('combined'));
 
 // Rate limiting
 const limiter = rateLimit({

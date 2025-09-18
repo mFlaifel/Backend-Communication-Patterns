@@ -4,6 +4,7 @@ const { query } = require('../config/database');
 // JWT Authentication middleware
 const authenticateToken = async (req, res, next) => {
   try {
+    console.log('Authenticating token...');
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
