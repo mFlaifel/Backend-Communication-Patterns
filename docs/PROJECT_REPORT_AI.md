@@ -10,8 +10,41 @@ This report details the communication pattern choices for seven key features of 
 
 **Pattern Chosen:** Request/Response (HTTP REST)
 
-- use HTTP REST for account management with async for database operation, but the user get the response in sync request /response pattern.
-- no need to use other method because it will all introduce difficulties and simple http will fulfill the requirements for this feature.
+#### Reasoning
+
+**Business Requirements Analysis:**
+
+- Users expect immediate confirmation for login/registration
+- Profile updates must be reflected immediately
+- Payment information requires secure, reliable handling
+- Must work reliably with poor internet connections
+
+**Technical Considerations:**
+
+- Standard CRUD operations with immediate feedback
+- Stateless operations suitable for HTTP
+- Well-understood caching and security patterns
+- Simple to implement and test
+
+**User Experience Impact:**
+
+- Immediate feedback builds user confidence
+- Familiar interaction pattern for users
+- Clear success/error states
+- Works across all devices and network conditions
+
+**Scalability Factors:**
+
+- Stateless design scales horizontally
+- Can leverage CDN caching for static responses
+- Database optimized with proper indexing
+- JWT tokens eliminate server-side session storage
+
+#### Alternatives Considered
+
+- **WebSockets**: Rejected - Overkill for simple CRUD operations, adds unnecessary complexity
+- **Server-Sent Events**: Rejected - No need for real-time updates on account data
+- **Pub/Sub**: Rejected - Account operations are user-specific, not broadcast scenarios
 
 #### Trade-offs Accepted
 

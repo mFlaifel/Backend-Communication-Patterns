@@ -23,6 +23,7 @@ router.post(
       const { restaurantId, items, deliveryAddress, specialInstructions } =
         req.body;
 
+      console.log('req.body:', req.body);
       if (
         !restaurantId ||
         !items ||
@@ -129,6 +130,7 @@ router.post(
  * Short polling endpoint for order status tracking
  * Clients should poll this every 60 seconds
  */
+
 router.get('/:orderId/status', authenticateToken, async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -137,7 +139,6 @@ router.get('/:orderId/status', authenticateToken, async (req, res) => {
 
     // First check Redis cache for quick response
     const cachedStatus = await get(`order_status:${orderId}`);
-
     let orderStatus;
     let fromCache = false;
 
@@ -157,7 +158,7 @@ router.get('/:orderId/status', authenticateToken, async (req, res) => {
       const result = await query(
         `SELECT o.id, o.customer_id, o.restaurant_id, o.driver_id, o.status, 
                 o.total_amount, o.delivery_address, o.created_at, o.updated_at,
-                r.name as restaurant_name,
+                rest.name as restaurant_name,
                 CASE 
                   WHEN d.first_name IS NOT NULL 
                   THEN d.first_name || ' ' || d.last_name 
@@ -278,11 +279,9 @@ router.put('/:orderId/status', authenticateToken, async (req, res) => {
     if (userType === 'restaurant') {
       // Restaurants can update: confirmed -> preparing -> ready
       if (!['preparing', 'ready'].includes(status)) {
-        return res
-          .status(400)
-          .json({
-            error: 'Restaurants can only set status to preparing or ready',
-          });
+        return res.status(400).json({
+          error: 'Restaurants can only set status to preparing or ready',
+        });
       }
 
       updateQuery = `
@@ -295,11 +294,9 @@ router.put('/:orderId/status', authenticateToken, async (req, res) => {
     } else if (userType === 'driver') {
       // Drivers can update: ready -> picked_up -> delivered
       if (!['picked_up', 'delivered'].includes(status)) {
-        return res
-          .status(400)
-          .json({
-            error: 'Drivers can only set status to picked_up or delivered',
-          });
+        return res.status(400).json({
+          error: 'Drivers can only set status to picked_up or delivered',
+        });
       }
 
       updateQuery = `
@@ -309,11 +306,9 @@ router.put('/:orderId/status', authenticateToken, async (req, res) => {
         RETURNING id, status, updated_at`;
       updateParams = [status, userId, orderId];
     } else {
-      return res
-        .status(403)
-        .json({
-          error: 'Only restaurants and drivers can update order status',
-        });
+      return res.status(403).json({
+        error: 'Only restaurants and drivers can update order status',
+      });
     }
 
     const result = await query(updateQuery, updateParams);
@@ -359,7 +354,7 @@ router.get(
       const customerId = req.user.id;
 
       const result = await query(
-        `SELECT o.id, o.status, o.total_amount, o.created_at, r.name as restaurant_name
+        `SELECT o.id, o.status, o.total_amount, o.created_at, rest.name as restaurant_name
        FROM orders o
        JOIN restaurants rest ON o.restaurant_id = rest.id
        JOIN users r ON rest.user_id = r.id
