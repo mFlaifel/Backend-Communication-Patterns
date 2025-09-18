@@ -331,7 +331,7 @@ router.get(
 
       const result = await query(
         `SELECT o.id, o.status, o.delivery_address, o.total_amount, o.created_at,
-              r.name as restaurant_name, r.address as restaurant_address,
+              rest.name as restaurant_name, rest.address as restaurant_address,
               c.first_name || ' ' || c.last_name as customer_name
        FROM orders o
        JOIN restaurants rest ON o.restaurant_id = rest.id
@@ -414,6 +414,55 @@ router.post(
     } catch (error) {
       console.error('Driver assignment error:', error);
       res.status(500).json({ error: 'Failed to assign to order' });
+    }
+  }
+);
+
+/**
+ * GET /api/driver/available-orders
+ * Get all orders that don't have a driver assigned
+ */
+router.get(
+  '/available-orders',
+  authenticateToken,
+  authorize(['driver']),
+  async (req, res) => {
+    try {
+      const result = await query(
+        `SELECT o.id, o.status, o.delivery_address, o.total_amount, o.created_at,
+              rest.name as restaurant_name, rest.address as restaurant_address,
+              c.first_name || ' ' || c.last_name as customer_name
+       FROM orders o
+       JOIN restaurants rest ON o.restaurant_id = rest.id
+       JOIN users c ON o.customer_id = c.id
+       WHERE o.driver_id IS NULL AND o.status = 'ready'
+       ORDER BY o.created_at ASC`,
+        []
+      );
+
+      const availableOrders = result.rows.map((order) => ({
+        id: order.id,
+        status: order.status,
+        customerName: order.customer_name,
+        restaurantName: order.restaurant_name,
+        restaurantAddress: order.restaurant_address,
+        deliveryAddress: order.delivery_address,
+        totalAmount: order.total_amount,
+        createdAt: order.created_at,
+        assignEndpoint: `/api/driver/assign/${order.id}`,
+      }));
+
+      res.json({
+        availableOrders,
+        count: availableOrders.length,
+        instructions: {
+          assignment:
+            'POST to /api/driver/assign/{orderId} to claim an order for delivery',
+        },
+      });
+    } catch (error) {
+      console.error('Available orders fetch error:', error);
+      res.status(500).json({ error: 'Failed to fetch available orders' });
     }
   }
 );
