@@ -10,6 +10,166 @@
 			"name": "Feature 1: Customer Account Management",
 			"item": [
 				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"userType\": \"customer\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"restaurant@example.com\",\n\t\"password\": \"password123\",\n    \"restaurantName\":\"laziz resturant\",\n\t\"firstName\": \"John\",\n    \"lastName\":\"Doe\",\n\t\"userType\": \"restaurant\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"driver@example.com\",\n\t\"password\": \"password123\",\n\t\"firstName\": \"first\",\n    \"lastName\":\"driver\",\n\t\"userType\": \"driver\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Support",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"support@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"first\",\n    \"lastName\": \"driver\",\n    \"userType\": \"support\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Login User",
 					"event": [
 						{
@@ -50,7 +210,7 @@
 					"response": []
 				},
 				{
-					"name": "Register User",
+					"name": "Login Driver",
 					"event": [
 						{
 							"listen": "test",
@@ -74,16 +234,96 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"userType\": \"customer\"\n}"
+							"raw": "{\n\t\"email\": \"driver@example.com\",\n\t\"password\": \"password123\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/register",
+							"raw": "{{baseUrl}}/auth/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"auth",
-								"register"
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"restaurant@example.com\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Support",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"support@example.com\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
 							]
 						}
 					},
@@ -270,7 +510,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"restaurantId\": 1,\n\t\"items\": [\n\t\t{\n\t\t\t\"menuItemId\": 1,\n\t\t\t\"quantity\": 2\n\t\t}\n\t],\n    \"deliveryAddress\":\"25 street, building 15, apartmetn no.3\"\n}",
+							"raw": "{\n\t\"restaurantId\": 2,\n\t\"items\": [\n\t\t{\n\t\t\t\"menuItemId\": 1,\n\t\t\t\"quantity\": 2\n\t\t}\n\t],\n    \"deliveryAddress\":\"25 street, building 15, apartmetn no.3\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,7 +566,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"\"\r\n}",
+							"raw": "{\r\n    \"status\": \"picked_up\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -334,14 +574,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/orders/8/status",
+							"raw": "{{baseUrl}}/orders/:orderId/status",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"orders",
-								"8",
+								":orderId",
 								"status"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -410,58 +656,200 @@
 			"item": [
 				{
 					"name": "Driver",
-					"item": []
+					"item": [
+						{
+							"name": "available-orders",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/driver/available-orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"driver",
+										"available-orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Accept Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/driver/assign/8",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"driver",
+										"assign",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "active-deliveries",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/driver/active-deliveries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"driver",
+										"active-deliveries"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "location",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderId\": 8,\r\n    \"latitude\": 1.1,\r\n    \"longitude\": 1.1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/driver/location",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"driver",
+										"location"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Customer",
-					"item": []
-				},
-				{
-					"name": "active-deliveries",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/driver/active-deliveries",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"driver",
-								"active-deliveries"
-							]
+					"item": [
+						{
+							"name": "live location",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderId\": 1,\r\n    \"latitude\": 1.1,\r\n    \"longitude\": 1.1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/driver/location/:orderId/stream",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"driver",
+										"location",
+										":orderId",
+										"stream"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Location",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderId\": 1,\r\n    \"latitude\": 1.1,\r\n    \"longitude\": 1.1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/driver/location/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"driver",
+										"location",
+										":orderId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Accept Order",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/driver/assign/8",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"driver",
-								"assign",
-								"8"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			],
 			"auth": {
@@ -498,48 +886,163 @@
 			]
 		},
 		{
-			"name": "Restaurant",
+			"name": "Feature 4: Restaurant Order Notifications",
 			"item": [
 				{
-					"name": "Get Restaurants",
+					"name": "orders/dashboard",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/restaurants",
+							"raw": "{{baseUrl}}/restaurant/dashboard",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"restaurants"
+								"restaurant",
+								"dashboard"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Restaurant Menu",
+					"name": "orders/pending",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/restaurants/:id/menu",
+							"raw": "{{baseUrl}}/restaurant/orders/pending",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"restaurants",
-								":id",
-								"menu"
+								"restaurant",
+								"orders",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/orders/:orderId/accept",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurant/orders/:orderId/accept",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurant",
+								"orders",
+								":orderId",
+								"accept"
 							],
 							"variable": [
 								{
-									"key": "id"
+									"key": "orderId",
+									"value": "10"
 								}
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/orders/:orderId/ready",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurant/orders/:orderId/ready",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurant",
+								"orders",
+								":orderId",
+								"ready"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/orders/:orderId/cancel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\":\"Item is not available now\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurant/orders/:orderId/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurant",
+								"orders",
+								":orderId",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},

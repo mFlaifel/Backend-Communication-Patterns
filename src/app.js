@@ -20,9 +20,9 @@ const announcementRouter = require('./routes/announcements');
 const imageRouter = require('./routes/images');
 
 // Import socket handlers
-const chatHandler = require('./sockets/chatHandler');
-const restaurantHandler = require('./sockets/restaurantHandler');
-const announcementHandler = require('./sockets/announcementHandler');
+const { chatHandler } = require('./sockets/chatHandler');
+const { restaurantHandler } = require('./sockets/restaurantHandler');
+const { announcementHandler } = require('./sockets/announcementHandler');
 
 const app = express();
 const server = http.createServer(app);

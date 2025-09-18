@@ -333,4 +333,4 @@ async function verifyTokenAndGetUserId(token) {
   }
 }
 
-module.exports = chatHandler;
+module.exports = { chatHandler };
