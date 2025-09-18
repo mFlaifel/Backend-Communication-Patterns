@@ -1047,56 +1047,421 @@
 			]
 		},
 		{
-			"name": "Support",
+			"name": "Feature 5: Customer Support Chat",
 			"item": [
 				{
-					"name": "Create Support Ticket",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"subject\": \"Order Issue\",\n\t\"message\": \"My order is delayed\"\n}"
+					"name": "Customer",
+					"item": [
+						{
+							"name": "/chat/start",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\":\"problem with order\", \"initialMessage\":\"i have a problem with the last order\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/support/chat/start",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"support",
+										"chat",
+										"start"
+									]
+								}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}/support/tickets",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"support",
-								"tickets"
-							]
+						{
+							"name": "support/chat/:chatId/messages",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\":\"problem with order\", \"initialMessage\":\"i have a problem with the last order\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/support/chat/:chatId/messages",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"support",
+										"chat",
+										":chatId",
+										"messages"
+									],
+									"variable": [
+										{
+											"key": "chatId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/chat/customer/active",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\":\"problem with order\", \"initialMessage\":\"i have a problem with the last order\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/support/chat/customer/active",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"support",
+										"chat",
+										"customer",
+										"active"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Agent",
+					"item": [
+						{
+							"name": "/agent/queue",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\":\"problem with order\", \"initialMessage\":\"i have a problem with the last order\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/support/agent/queue",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"support",
+										"agent",
+										"queue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/agent/take/:chatId",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\":\"problem with order\", \"initialMessage\":\"i have a problem with the last order\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/support/agent/take/:chatId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"support",
+										"agent",
+										"take",
+										":chatId"
+									],
+									"variable": [
+										{
+											"key": "chatId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/chat/:chatId/close",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\":\"problem with order\", \"initialMessage\":\"i have a problem with the last order\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/support/chat/:chatId/close",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"support",
+										"chat",
+										":chatId",
+										"close"
+									],
+									"variable": [
+										{
+											"key": "chatId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
 		{
-			"name": "Announcements",
+			"name": "Feature 6: System-Wide Announcements",
 			"item": [
+				{
+					"name": "Support",
+					"item": [
+						{
+							"name": "announcements",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"tests\",\r\n    \"message\": \"test msgf\",\r\n    \"announcementType\": \"general\",\r\n    \"targetAudience\": \"\",\r\n    \"scheduledAt\": \"\",\r\n    \"expiresAt\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/announcements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"announcements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "announcements",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"tests\",\r\n    \"message\": \"test msgf\",\r\n    \"announcementType\": \"general\",\r\n    \"targetAudience\": \"\",\r\n    \"scheduledAt\": \"\",\r\n    \"expiresAt\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/announcements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"announcements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "announcements",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"tests\",\r\n    \"message\": \"test msgf\",\r\n    \"announcementType\": \"general\",\r\n    \"targetAudience\": \"\",\r\n    \"scheduledAt\": \"\",\r\n    \"expiresAt\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/announcements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"announcements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "Get Announcements",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/announcements",
+							"raw": "{{baseUrl}}/announcements/active",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"announcements"
+								"announcements",
+								"active"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Dismiss Announcements",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/announcements/:id/dismiss",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"announcements",
+								":id",
+								"dismiss"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},

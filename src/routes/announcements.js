@@ -181,30 +181,34 @@ router.get('/', authenticateToken, authorize(['support']), async (req, res) => {
 
     let whereClause = 'WHERE 1=1';
     const params = [];
-    let paramCount = 0;
+    let paramIndex = 1;
 
     if (type) {
-      paramCount++;
-      whereClause += ` AND announcement_type = ${paramCount}`;
+      whereClause += ` AND announcement_type = $${paramIndex}`;
       params.push(type);
+      paramIndex++;
     }
 
     if (audience) {
-      paramCount++;
-      whereClause += ` AND target_audience = ${paramCount}`;
+      whereClause += ` AND target_audience = $${paramIndex}`;
       params.push(audience);
+      paramIndex++;
     }
 
     if (active !== undefined) {
-      paramCount++;
-      whereClause += ` AND is_active = ${paramCount}`;
+      whereClause += ` AND is_active = $${paramIndex}`;
       params.push(active === 'true');
+      paramIndex++;
     }
 
     const offset = (page - 1) * limit;
-    paramCount++;
-    params.push(limit);
-    paramCount++;
+
+    // Add limit and offset parameters
+    const limitIndex = paramIndex;
+    params.push(parseInt(limit));
+    paramIndex++;
+
+    const offsetIndex = paramIndex;
     params.push(offset);
 
     const result = await query(
@@ -213,14 +217,16 @@ router.get('/', authenticateToken, authorize(['support']), async (req, res) => {
        FROM announcements 
        ${whereClause}
        ORDER BY created_at DESC
-       LIMIT ${paramCount - 1} OFFSET ${paramCount}`,
+       LIMIT $${limitIndex} OFFSET $${offsetIndex}`,
       params
     );
 
-    // Get total count
+    // Get total count - create a copy of params without limit and offset
+    const countParams = params.slice(0, limitIndex - 1);
+
     const countResult = await query(
       `SELECT COUNT(*) as total FROM announcements ${whereClause}`,
-      params.slice(0, -2) // Remove limit and offset params
+      countParams
     );
 
     const totalCount = parseInt(countResult.rows[0].total);
